@@ -19,12 +19,13 @@ export default function Countries() {
 
   return (
     <Container>
-      {countries.map((countrie, index) => (
+      {countries.map(countrie => (
         <Card
-          key={index.toString()}
+          key={countrie._id}
           name={countrie.name}
           capital={countrie.capital}
           bandeira={countrie.flag.svgFile}
+          to={'/countrie/' + countrie._id}
         />
       ))}
     </Container>

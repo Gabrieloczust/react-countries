@@ -3,13 +3,21 @@ import api from '../services/api'
 
 export const fetchCountries = createAsyncThunk('',
   async () => {
-    const response = await api(`Country {
-      name
-      capital
-      flag {
-        svgFile
+    const response = await api(`
+      Country {
+        _id
+        name
+        capital
+        area
+        population
+        flag {
+          svgFile
+        }
+        topLevelDomains {
+          name
+        }
       }
-    }`)
+    `)
 
     return response.splice(0, 12)
   }

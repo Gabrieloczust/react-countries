@@ -1,0 +1,51 @@
+#countrie {
+    height: 100%;
+}
+
+#countrie .background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: .1;
+    z-index: -1;
+}
+
+#countrie .continer {
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+#countrie .list {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+}
+
+#countrie .list .img {
+    border-radius: 8px;
+    display: flex;
+    overflow: hidden;
+}
+
+#countrie .list img {
+    height: 275px;
+    max-width: 100%;
+}
+
+@media(max-width: 800px) {
+    #countrie .list {
+        flex-direction: column;
+    }
+
+    #countrie .list img {
+        height: auto;
+        max-height: 40vh;
+    }
+}

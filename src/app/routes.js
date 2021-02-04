@@ -8,7 +8,7 @@ function Routes() {
     return (
         <BrowserRouter>
             <Route path="/" exact component={Countries} />
-            <Route path="/study" component={Countrie} />
+            <Route path="/countrie/:id" component={Countrie} />
         </BrowserRouter>
     )
 }

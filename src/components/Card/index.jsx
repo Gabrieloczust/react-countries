@@ -1,17 +1,23 @@
-import React from 'react';
-import './styles.css';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './styles.css'
 
-function Card({ name, capital, bandeira }) {
+function Card({ to, name, capital, bandeira }) {
     return (
-        <div className="card" title={name}>
+        <Link
+            className="card"
+            title={name}
+            to={to}
+        >
             <div className="background" style={{ backgroundImage: `url(${bandeira})` }}></div>
             <img src={bandeira} alt="Bandeira" />
-            <div>
+
+            <div className="content">
                 <h4>{name}</h4>
                 <h6>Capital: {capital}</h6>
             </div>
-        </div>
+        </Link>
     )
 }
 
-export default Card;
+export default Card
