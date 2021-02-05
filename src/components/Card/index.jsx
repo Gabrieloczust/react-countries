@@ -10,7 +10,6 @@ function Card({ to, name, capital, bandeira }) {
             to={to}
         >
             <div className="background" style={{ backgroundImage: `url(${bandeira})` }}></div>
-            <img src={bandeira} alt="Bandeira" />
 
             <div className="content">
                 <h4>{name}</h4>
