@@ -51,12 +51,11 @@
 
 .card:hover {
     border-radius: 50%;
-    transition: .4s all;
+    border-color: transparent;
 }
 
 .card:hover .background {
     position: absolute;
-    transition: .4s all;
     height: 100%;
 }
 

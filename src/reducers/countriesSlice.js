@@ -19,7 +19,7 @@ export const fetchCountries = createAsyncThunk('',
       }
     `)
 
-    return response.Country.splice(0, 12)
+    return response.Country
   }
 )
 
