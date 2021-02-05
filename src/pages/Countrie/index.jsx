@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectCountries } from '../../reducers/countriesSlice'
-import { useParams, useHistory } from "react-router-dom"
+import { useParams, useHistory, Redirect } from "react-router-dom"
 import Container from '../../components/Container'
 import List from '../../components/List'
 import Button from '../../components/Button'
@@ -14,6 +14,10 @@ export default function Countrie() {
 
   const { value: countries } = useSelector(selectCountries)
   const countrie = countries.find(countrie => countrie._id === id)
+
+  if (!countrie) {
+    return <Redirect to='/' />
+  }
 
   const handleClickBack = () => {
     history.push('/')
@@ -30,10 +34,10 @@ export default function Countrie() {
         <div className="content">
           <header>
             <Button type="primary">
-              Editar
+              EDITAR
             </Button>
             <Button type="secondary" onClick={handleClickBack}>
-              Voltar
+              VOLTAR
             </Button>
           </header>
 

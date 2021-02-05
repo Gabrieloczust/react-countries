@@ -1,29 +1,31 @@
 .button {
     flex: 1;
     border: none;
-    padding: 12px;
+    padding: 14px 12px;
     outline: 0;
     background-color: #f9f9f9c2;
     border-radius: 10px;
     box-sizing: border-box;
     cursor: pointer;
     box-shadow: 0px 1px 2px 0px rgb(0 0 0 / 30%);
+    letter-spacing: 1px;
+    font-size: 12px;
 }
 
 .button[type="primary"] {
-    background-color: #03a9f4d6;
+    background-color: #1db9ffd6;
     color: #fff;
 }
 
 .button[type="primary"]:hover {
-    background-color: #03a9f4;
+    background-color: #1db9ff;
 }
 
 .button[type="secondary"] {
-    background-color: #ffc10794;
+    background-color: #ffcb2ebd;
     color: #fff;
 }
 
 .button[type="secondary"]:hover {
-    background-color: #ffc107;
+    background-color: #ffcb2e;
 }

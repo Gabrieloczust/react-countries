@@ -10,7 +10,7 @@
     width: 100%;
     background-size: cover;
     background-position: center;
-    opacity: .05;
+    opacity: .07;
     z-index: -1;
 }
 
@@ -42,7 +42,7 @@
 
 #countrie .img img {
     max-width: 50vw;
-    height: 305px;
+    height: 325px;
 }
 
 @media(max-width: 800px) {
