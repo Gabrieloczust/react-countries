@@ -3,7 +3,7 @@ import './styles.css'
 
 function Container(props) {
     return (
-        <div className="container" {...props}>
+        <div className="container" data-testid="container-component" {...props}>
             {props.children}
         </div>
     )
