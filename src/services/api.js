@@ -9,7 +9,7 @@ const api = async query => {
 
     const { data } = await response.json()
 
-    return data.Country
+    return data
 }
 
 export default api
