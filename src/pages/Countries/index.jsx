@@ -8,7 +8,6 @@ import './styles.css'
 export default function Countries() {
 
   const dispatch = useDispatch()
-
   const { countries, isLoading } = useSelector(selectCountries)
   const [searchTerm, setSearchTerm] = useState("")
   const [searchCountries, setSearchCountries] = useState([])
@@ -18,8 +17,10 @@ export default function Countries() {
   }
 
   useEffect(() => {
-    dispatch(fetchCountries())
-  }, [dispatch])
+    if(!countries) {
+        dispatch(fetchCountries())
+    }
+  }, [dispatch, countries])
 
   useEffect(() => {
     const results = searchTerm?.length > 0

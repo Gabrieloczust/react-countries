@@ -1,6 +1,6 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectCountries } from '../../store/countries'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCountrie, selectCountries } from '../../store/countries'
 import { useParams, useHistory, Redirect } from "react-router-dom"
 import Container from '../../components/Container'
 import List from '../../components/List'
@@ -9,62 +9,71 @@ import './styles.css'
 
 export default function Countrie() {
 
-  const { id } = useParams()
-  const history = useHistory()
+    const dispatch = useDispatch()
+    const { countrie } = useSelector(selectCountries)
+    const { id } = useParams()
+    const history = useHistory()
+    const [mounted, setMounted] = useState(false)
 
-  const { countries } = useSelector(selectCountries)
-  const countrie = countries.find(countrie => countrie._id === id)
+    useEffect(() => {
+        if (!mounted) {
+            dispatch(getCountrie(id))
+            setMounted(true)
+        }
+    }, [dispatch, mounted])
 
-  if (!countrie) {
-    return <Redirect to='/' />
-  }
+    if (!countrie && mounted) {
+        return <Redirect to='/' />
+    }
 
-  const handleClickBack = () => {
-    history.push('/')
-  }
+    const handleClick = () => {
+        history.push('/')
+    }
 
-  return (
-    <Container id="countrie">
-      <div className="background" style={{ backgroundImage: `url(${countrie.flag.svgFile})` }}></div>
+    return (
+        <Container id="countrie">
+            <div className="background" style={{ backgroundImage: `url(${countrie?.flag?.svgFile})` }}></div>
 
-      <section className="informations">
-        <div className="img">
-          <img src={countrie.flag.svgFile} alt="Bandeira" />
-        </div>
-        <div className="content">
-          <header>
-            <Button type="primary">
-              EDITAR
-            </Button>
-            <Button type="secondary" onClick={handleClickBack}>
-              VOLTAR
-            </Button>
-          </header>
+            <section className="informations">
+                <div className="img">
+                    <img src={countrie?.flag?.svgFile} alt="Bandeira" />
+                </div>
+                <div className="content">
+                    <header>
+                        <Button type="primary">
+                            EDITAR
+                        </Button>
+                        <Button type="secondary" onClick={handleClick}>
+                            VOLTAR
+                        </Button>
+                    </header>
 
-          <List list={[
-            {
-              name: 'Nome',
-              value: countrie.name
-            },
-            {
-              name: 'Capital',
-              value: countrie.capital
-            },
-            {
-              name: 'Área',
-              value: countrie.area
-            },
-            {
-              name: 'População',
-              value: countrie.population
-            },
-            {
-              name: 'Domínio',
-              value: countrie.topLevelDomains[0].name
-            },
-          ]} />
-        </div>
-      </section>
-    </Container>
-  )
+                    <List
+                        list={[
+                            {
+                                name: 'Nome',
+                                value: countrie?.name
+                            },
+                            {
+                                name: 'Capital',
+                                value: countrie?.capital
+                            },
+                            {
+                                name: 'Área',
+                                value: countrie?.area
+                            },
+                            {
+                                name: 'População',
+                                value: countrie?.population
+                            },
+                            {
+                                name: 'Domínio',
+                                value: countrie?.topLevelDomains[0]?.name
+                            },
+                        ]}
+                    />
+                </div>
+            </section>
+        </Container>
+    )
 }
