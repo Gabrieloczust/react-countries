@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectCountries } from '../../reducers/countriesSlice'
+import { selectCountries } from '../../store/countries'
 import { useParams, useHistory, Redirect } from "react-router-dom"
 import Container from '../../components/Container'
 import List from '../../components/List'
@@ -12,7 +12,7 @@ export default function Countrie() {
   const { id } = useParams()
   const history = useHistory()
 
-  const { value: countries } = useSelector(selectCountries)
+  const { countries } = useSelector(selectCountries)
   const countrie = countries.find(countrie => countrie._id === id)
 
   if (!countrie) {

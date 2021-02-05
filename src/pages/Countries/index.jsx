@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCountries, selectCountries } from '../../reducers/countriesSlice'
+import { fetchCountries, selectCountries } from '../../store/countries'
 import Container from '../../components/Container'
 import Card from '../../components/Card'
 import './styles.css'
@@ -8,36 +8,28 @@ import './styles.css'
 export default function Countries() {
 
   const dispatch = useDispatch()
-  const { value: countries } = useSelector(selectCountries)
 
-  const [mounted, setMounted] = useState(false)
+  const { countries, isLoading } = useSelector(selectCountries)
   const [searchTerm, setSearchTerm] = useState("")
   const [searchCountries, setSearchCountries] = useState([])
-
-  async function asyncFetchCountries() {
-    await dispatch(fetchCountries())
-  }
 
   function handleChange(event) {
     setSearchTerm(event.target.value)
   }
 
   useEffect(() => {
-    if (!mounted) {
-      asyncFetchCountries()
-      setMounted(true)
-    }
-  }, [mounted])
+    dispatch(fetchCountries())
+  }, [dispatch])
 
   useEffect(() => {
-    const results = searchTerm.length > 0
+    const results = searchTerm?.length > 0
       ? countries.filter(countrie =>
         countrie.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
       : countries
 
     setSearchCountries(results)
-  }, [searchTerm, countries]);
+  }, [searchTerm, countries])
 
   return (
     <Container>
@@ -49,7 +41,7 @@ export default function Countries() {
           onChange={handleChange} />
       </header>
 
-      {searchCountries.length > 0 && searchCountries.map(countrie => (
+      {searchCountries?.length > 0 && searchCountries.map(countrie => (
         <Card
           key={countrie._id}
           name={countrie.name}
@@ -59,13 +51,13 @@ export default function Countries() {
         />
       ))}
 
-      {searchTerm.length > 0 && searchCountries.length == 0 && (
+      {searchTerm?.length > 0 && searchCountries?.length === 0 && (
         <div>
           Nenhum resultado para a busca "{searchTerm}".
         </div>
       )}
 
-      {countries.length == 0 && (
+      {isLoading && (
         <div>
             Carregando...
         </div>
