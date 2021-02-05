@@ -4,7 +4,7 @@ import './styles.css'
 export default function List({ list }) {
 
     return (
-        <ul className="listComponent">
+        <ul className="listComponent" data-testid="list-component">
             {list && list.map((item, index) => (
                 <li key={index}>
                     <b>{item.name}: </b>
