@@ -47,16 +47,24 @@
     line-height: 1;
     margin: 0;
     font-weight: normal;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.card:hover {
-    border-radius: 50%;
-    border-color: transparent;
-}
+@media(min-width: 801px) {
 
-.card:hover .background {
-    position: absolute;
-    height: 100%;
+    .card:hover {
+        border-radius: 50%;
+        border-color: transparent;
+        min-height: 200px;
+    }
+
+    .card:hover .background {
+        position: absolute;
+        height: 100%;
+    }
 }
 
 @media(max-width: 800px) {
