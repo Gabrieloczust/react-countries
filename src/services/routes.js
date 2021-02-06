@@ -2,13 +2,13 @@ import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 import Countries from '../pages/Countries'
-import Countrie from '../pages/Countrie'
+import Country from '../pages/Country'
 
 function Routes() {
     return (
         <BrowserRouter>
             <Route path="/" exact component={Countries} />
-            <Route path="/countrie/:id" component={Countrie} />
+            <Route path="/country/:id" component={Country} />
         </BrowserRouter>
     )
 }

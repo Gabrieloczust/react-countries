@@ -1,28 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getCountrie, selectCountries } from '../../store/countries'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { selectCountries } from '../../store/countries'
 import { useParams, useHistory, Redirect } from "react-router-dom"
 import Container from '../../components/Container'
 import List from '../../components/List'
 import Button from '../../components/Button'
 import './styles.css'
 
-export default function Countrie() {
+export default function Country() {
 
-    const dispatch = useDispatch()
-    const { countrie } = useSelector(selectCountries)
+    const { countries } = useSelector(selectCountries)
     const { id } = useParams()
     const history = useHistory()
-    const [mounted, setMounted] = useState(false)
 
-    useEffect(() => {
-        if (!mounted) {
-            dispatch(getCountrie(id))
-            setMounted(true)
-        }
-    }, [dispatch, mounted])
+    const country = countries?.find(country =>
+        country._id === id
+    )
 
-    if (!countrie && mounted) {
+    if (!country) {
         return <Redirect to='/' />
     }
 
@@ -31,12 +26,12 @@ export default function Countrie() {
     }
 
     return (
-        <Container id="countrie">
-            <div className="background" style={{ backgroundImage: `url(${countrie?.flag?.svgFile})` }}></div>
+        <Container id="country">
+            <div className="background" style={{ backgroundImage: `url(${country?.flag?.svgFile})` }}></div>
 
             <section className="informations">
                 <div className="img">
-                    <img src={countrie?.flag?.svgFile} alt="Bandeira" />
+                    <img src={country?.flag?.svgFile} alt="Bandeira" />
                 </div>
                 <div className="content">
                     <header>
@@ -52,23 +47,23 @@ export default function Countrie() {
                         list={[
                             {
                                 name: 'Nome',
-                                value: countrie?.name
+                                value: country?.name
                             },
                             {
                                 name: 'Capital',
-                                value: countrie?.capital
+                                value: country?.capital
                             },
                             {
                                 name: 'Área',
-                                value: countrie?.area
+                                value: country?.area
                             },
                             {
                                 name: 'População',
-                                value: countrie?.population
+                                value: country?.population
                             },
                             {
                                 name: 'Domínio',
-                                value: countrie?.topLevelDomains[0]?.name
+                                value: country?.topLevelDomains[0]?.name
                             },
                         ]}
                     />

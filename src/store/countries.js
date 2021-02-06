@@ -5,16 +5,11 @@ const initialCountries = localStorage.getItem('countries')
     ? JSON.parse(localStorage.getItem('countries'))
     : null
 
-const initialCountrie = localStorage.getItem('countrie')
-    ? JSON.parse(localStorage.getItem('countrie'))
-    : null
-
 // Slice
 const slice = createSlice({
     name: 'countries',
     initialState: {
         countries: initialCountries,
-        countrie: initialCountrie,
         isLoading: false,
         error: false,
     },
@@ -34,13 +29,6 @@ const slice = createSlice({
 
             state.isLoading = false
         },
-        countrieSuccess: (state, action) => {
-            state.countrie = state.countries.find(countrie => countrie._id === action.payload)
-
-            if (state.countrie) {
-                localStorage.setItem('countrie', JSON.stringify(state.countrie))
-            }
-        },
     }
 })
 
@@ -48,7 +36,7 @@ export default slice.reducer
 
 // Actions
 
-const { startLoading, hasError, countriesSuccess, countrieSuccess } = slice.actions
+const { startLoading, hasError, countriesSuccess } = slice.actions
 
 export const fetchCountries = () => async dispatch => {
     dispatch(startLoading())
@@ -72,10 +60,6 @@ export const fetchCountries = () => async dispatch => {
     catch (e) {
         dispatch(hasError(e.message))
     }
-}
-
-export const getCountrie = id => dispatch => {
-    dispatch(countrieSuccess(id))
 }
 
 export const selectCountries = state => state.countries

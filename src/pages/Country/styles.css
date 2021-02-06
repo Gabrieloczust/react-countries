@@ -1,8 +1,8 @@
-#countrie {
+#country {
     height: 100%;
 }
 
-#countrie .background {
+#country .background {
     position: absolute;
     left: 0;
     top: 0;
@@ -14,7 +14,7 @@
     z-index: -1;
 }
 
-#countrie .informations {
+#country .informations {
     display: flex;
     align-items: center;
     align-self: center;
@@ -22,43 +22,43 @@
     width: 100%;
 }
 
-#countrie .content {
+#country .content {
     flex: 1;
 }
 
-#countrie .content header {
+#country .content header {
     width: 100%;
     display: flex;
     gap: 0 5px;
     margin: 0 0 10px 0;
 }
 
-#countrie img {
+#country img {
     border-radius: 8px;
     display: flex;
     overflow: hidden;
     margin: 0 15px 0 0;
 }
 
-#countrie .img img {
+#country .img img {
     max-width: 50vw;
     height: 325px;
 }
 
 @media(max-width: 800px) {
-    #countrie .informations {
+    #country .informations {
         flex-direction: column;
     }
 
-    #countrie .content {
+    #country .content {
         width: 100%;
     }
 
-    #countrie .img {
+    #country .img {
         margin: 0 0 15px 0;
     }
 
-    #countrie .img img {
+    #country .img img {
         height: auto;
         max-height: 40vh;
         max-width: 100%;
