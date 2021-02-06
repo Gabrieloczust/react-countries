@@ -34,37 +34,40 @@ export default function Countries() {
 
   return (
     <Container>
-      <header className="header">
-        <input
-          type="search"
-          placeholder="Buscar pelo nome..."
-          value={searchTerm}
-          onChange={handleChange} />
-      </header>
+        <section id="countries">
+            <header className="header">
+                <input
+                type="search"
+                placeholder="Buscar pelo nome..."
+                value={searchTerm}
+                onChange={handleChange} />
+            </header>
 
-        <div className="cards">
-            {searchCountries?.length > 0 && searchCountries.map(country => (
-                <Card
-                    key={country._id}
-                    name={country.name}
-                    capital={country.capital}
-                    bandeira={country.flag.svgFile}
-                    to={'/country/' + country._id}
-                />
-            ))}
-        </div>
+            {searchTerm?.length > 0 && searchCountries?.length === 0 && (
+                <div>
+                    Nenhum resultado para a busca "{searchTerm}".
+                </div>
+            )}
 
-      {searchTerm?.length > 0 && searchCountries?.length === 0 && (
-        <div>
-          Nenhum resultado para a busca "{searchTerm}".
-        </div>
-      )}
+            {isLoading && (
+                <div>
+                    Carregando...
+                </div>
+            )}
 
-      {isLoading && (
-        <div>
-            Carregando...
-        </div>
-      )}
+            <div className="cards">
+                {searchCountries?.length > 0 && searchCountries.map(country => (
+                    <Card
+                        key={country._id}
+                        name={country.name}
+                        capital={country.capital}
+                        bandeira={country.flag.svgFile}
+                        to={'/country/' + country._id}
+                    />
+                ))}
+            </div>
+
+      </section>
     </Container>
   )
 }
