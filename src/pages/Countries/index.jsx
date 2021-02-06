@@ -42,15 +42,17 @@ export default function Countries() {
           onChange={handleChange} />
       </header>
 
-      {searchCountries?.length > 0 && searchCountries.map(country => (
-        <Card
-          key={country._id}
-          name={country.name}
-          capital={country.capital}
-          bandeira={country.flag.svgFile}
-          to={'/country/' + country._id}
-        />
-      ))}
+        <div className="cards">
+            {searchCountries?.length > 0 && searchCountries.map(country => (
+                <Card
+                    key={country._id}
+                    name={country.name}
+                    capital={country.capital}
+                    bandeira={country.flag.svgFile}
+                    to={'/country/' + country._id}
+                />
+            ))}
+        </div>
 
       {searchTerm?.length > 0 && searchCountries?.length === 0 && (
         <div>
