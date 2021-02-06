@@ -1,15 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import api from '../services/api'
 
-const initialCountries = localStorage.getItem('countries')
-    ? JSON.parse(localStorage.getItem('countries'))
-    : null
-
 // Slice
 const slice = createSlice({
     name: 'countries',
     initialState: {
-        countries: initialCountries,
+        countries: null,
         isLoading: false,
         error: false,
     },
@@ -25,10 +21,20 @@ const slice = createSlice({
         },
         countriesSuccess: (state, action) => {
             state.countries = action.payload
-            localStorage.setItem('countries', JSON.stringify(action.payload))
-
             state.isLoading = false
         },
+        updateCountry: (state, action) => {
+            state.countries = state.countries.map(country => {
+                if (country._id === action.payload._id) {
+                    country = {
+                        ...country,
+                        ...action.payload
+                    }
+                }
+
+                return country
+            })
+        }
     }
 })
 
@@ -36,7 +42,7 @@ export default slice.reducer
 
 // Actions
 
-const { startLoading, hasError, countriesSuccess } = slice.actions
+const { startLoading, hasError, countriesSuccess, updateCountry } = slice.actions
 
 export const fetchCountries = () => async dispatch => {
     dispatch(startLoading())
@@ -60,6 +66,10 @@ export const fetchCountries = () => async dispatch => {
     catch (e) {
         dispatch(hasError(e.message))
     }
+}
+
+export const updateCountryOnClient = country => dispatch => {
+    dispatch(updateCountry(country))
 }
 
 export const selectCountries = state => state.countries

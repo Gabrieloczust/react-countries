@@ -3,7 +3,15 @@ import './styles.css'
 
 function Button(props) {
     return (
-        <button className="button" data-testid="button-component" {...props}>{props.children}</button>
+        <button
+            {...props}
+            className="button"
+            color={props.color ? props.color : 'primary'}
+            type={props.type ? props.type : 'button'}
+            data-testid="button-component"
+        >
+            {props.children}
+        </button>
     )
 }
 
