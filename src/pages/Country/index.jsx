@@ -74,6 +74,7 @@ export default function Country() {
                 <div className="content">
 
                     <Formik
+                        enableReinitialize
                         initialValues={{
                             _id: id,
                             name: country?.name,
