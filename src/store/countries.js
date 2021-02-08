@@ -41,7 +41,6 @@ const slice = createSlice({
 export default slice.reducer
 
 // Actions
-
 const { startLoading, hasError, countriesSuccess, updateCountry } = slice.actions
 
 export const fetchCountries = () => async dispatch => {
@@ -54,6 +53,7 @@ export const fetchCountries = () => async dispatch => {
                     capital
                     area
                     population
+                    alpha2Code
                     flag {
                         svgFile
                     }

@@ -35,26 +35,6 @@
     overflow-y: auto;
 }
 
-/* width */
-.cards::-webkit-scrollbar {
-    width: 10px;
-}
-
-/* Track */
-.cards::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-/* Handle */
-.cards::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
-/* Handle on hover */
-.cards::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
 @media(max-width: 1080px) {
     .cards {
         grid-template-columns: repeat(3, 1fr);

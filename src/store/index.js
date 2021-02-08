@@ -2,13 +2,15 @@ import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
 
 import countries from './countries'
+import countryMap from './countryMap'
 
 const reducer = combineReducers({
-  countries,
+    countries,
+    countryMap
 })
 
 const store = configureStore({
-  reducer,
+    reducer,
 })
 
 export default store
