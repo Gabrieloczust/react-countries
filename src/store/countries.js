@@ -16,8 +16,6 @@ const slice = createSlice({
         hasError: (state, action) => {
             state.error = action.payload
             state.isLoading = false
-
-            console.error(state.error)
         },
         countriesSuccess: (state, action) => {
             state.countries = action.payload
@@ -41,7 +39,7 @@ const slice = createSlice({
 export default slice.reducer
 
 // Actions
-const { startLoading, hasError, countriesSuccess, updateCountry } = slice.actions
+export const { startLoading, hasError, countriesSuccess, updateCountry } = slice.actions
 
 export const fetchCountries = () => async dispatch => {
     dispatch(startLoading())
