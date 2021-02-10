@@ -16,8 +16,6 @@ const slice = createSlice({
         hasError: (state, action) => {
             state.error = action.payload
             state.isLoading = false
-
-            console.error(state.error)
         },
         countryMapSuccess: (state, action) => {
             state.countryMap = action.payload
@@ -29,7 +27,7 @@ const slice = createSlice({
 export default slice.reducer
 
 // Actions
-const { startLoading, hasError, countryMapSuccess } = slice.actions
+export const { startLoading, hasError, countryMapSuccess } = slice.actions
 
 export const fetchCountryMap = (id, countries) => async dispatch => {
     dispatch(startLoading())
