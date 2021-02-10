@@ -8,6 +8,7 @@ function Card({ to, name, capital, bandeira }) {
             className="card"
             title={name}
             to={to}
+            data-testid="card-component"
         >
             <div className="background" style={{ backgroundImage: `url(${bandeira})` }}></div>
 
