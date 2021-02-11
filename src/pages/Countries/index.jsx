@@ -12,6 +12,9 @@ export default function Countries() {
   const [searchTerm, setSearchTerm] = useState("")
   const [searchCountries, setSearchCountries] = useState([])
 
+  document.title = 'Countries'
+  document.getElementById("favicon").href = "public/favicon.png"
+
   function handleChange(event) {
     setSearchTerm(event.target.value)
   }

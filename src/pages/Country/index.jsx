@@ -27,6 +27,9 @@ export default function Country() {
 
     if (!country) {
         return <Redirect to='/' />
+    } else {
+        document.title = country.name
+        document.getElementById("favicon").href = country.flag.svgFile
     }
 
     function handleSubmit(values) {
