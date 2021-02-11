@@ -24,9 +24,13 @@ export default function Countries() {
 
   useEffect(() => {
     const results = searchTerm?.length > 0
-      ? countries.filter(country =>
-        country.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      ? countries.filter(country => {
+        if (country.nameClient) {
+          return country.nameClient.toLowerCase().includes(searchTerm.toLowerCase())
+        }
+
+        return country.name.toLowerCase().includes(searchTerm.toLowerCase())
+      })
       : countries
 
     setSearchCountries(results)
@@ -59,7 +63,7 @@ export default function Countries() {
                 {searchCountries?.length > 0 && searchCountries.map(country => (
                     <Card
                         key={country._id}
-                        name={country.name}
+                        name={country.nameClient ? country.nameClient : country.name}
                         capital={country.capital}
                         bandeira={country.flag.svgFile}
                         to={'/country/' + country._id}

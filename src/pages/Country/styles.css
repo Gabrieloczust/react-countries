@@ -16,7 +16,6 @@
 
 #country .informations {
     display: flex;
-    align-items: center;
     align-self: center;
     justify-self: center;
     width: 100%;
@@ -33,16 +32,15 @@
     margin: 0 0 10px 0;
 }
 
-#country img {
-    border-radius: 8px;
+#country .img {
     display: flex;
-    overflow: hidden;
     margin: 0 15px 0 0;
+    flex: 1;
 }
 
 #country .img img {
-    max-width: 50vw;
-    height: 303px;
+    width: 100%;
+    border-radius: 8px;
 }
 
 #country .listComponent {
@@ -74,26 +72,13 @@
     background: transparent;
 }
 
-.map {
-    width: 100%;
-}
-
-.map div {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.map p {
-    width: 100%;
-    background-color: #f9f9f9c2;
-    border-radius: 10px;
-    box-sizing: border-box;
-    box-shadow: 1px 1px 1px 0px rgb(0 0 0 / 26%);
+.map-link {
     text-align: center;
-    padding: 12px 0;
-    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.map-link:hover {
+    background-color: #d4d4d4c2 !important;
 }
 
 @media(max-width: 800px) {
@@ -107,11 +92,13 @@
 
     #country .img {
         margin: 0 0 15px 0;
+        flex: unset;
+        justify-content: center;
     }
 
     #country .img img {
-        height: auto;
-        max-height: 40vh;
+        width: auto;
+        max-height: 200px;
         max-width: 100%;
     }
 

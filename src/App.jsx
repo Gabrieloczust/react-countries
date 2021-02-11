@@ -1,8 +1,8 @@
 import React from 'react'
-import Routes from './services/routes'
+import Pages from './pages'
 
 function App() {
-  return <Routes />
+  return <Pages />
 }
 
 export default App

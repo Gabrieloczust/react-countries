@@ -1,10 +1,10 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 
-import Countries from '../pages/Countries'
-import Country from '../pages/Country'
+import Countries from './Countries'
+import Country from './Country'
 
-function Routes() {
+function Pages() {
     return (
         <BrowserRouter>
             <Route path="/" exact component={Countries} />
@@ -13,4 +13,4 @@ function Routes() {
     )
 }
 
-export default Routes
+export default Pages

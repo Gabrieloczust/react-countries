@@ -66,8 +66,4 @@ export const fetchCountries = () => async dispatch => {
     }
 }
 
-export const updateCountryOnClient = country => dispatch => {
-    dispatch(updateCountry(country))
-}
-
 export const selectCountries = state => state.countries

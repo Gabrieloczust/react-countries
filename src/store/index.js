@@ -3,10 +3,12 @@ import { combineReducers } from 'redux'
 
 import countries from './countries'
 import countryMap from './countryMap'
+import layout from './layout'
 
 const reducer = combineReducers({
     countries,
-    countryMap
+    countryMap,
+    layout,
 })
 
 const store = configureStore({
