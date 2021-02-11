@@ -4,6 +4,7 @@ import { fetchCountries, selectCountries } from '../../store/countries'
 import Container from '../../components/Container'
 import Card from '../../components/Card'
 import './styles.css'
+import Spinner from '../../components/Spinner'
 
 export default function Countries() {
 
@@ -56,11 +57,7 @@ export default function Countries() {
                 </div>
             )}
 
-            {isLoading && (
-                <div>
-                    Carregando...
-                </div>
-            )}
+            {isLoading && <Spinner />}
 
             <div className="cards">
                 {searchCountries?.length > 0 && searchCountries.map(country => (

@@ -23,7 +23,7 @@
 }
 
 .header input:focus {
-    border-color: #1db9ff;
+    border-color: var(--primary);
 }
 
 .cards {

@@ -8,6 +8,7 @@ import { selectCountries } from '../../store/countries'
 import { closeModal } from '../../store/layout'
 
 import './styles.css'
+import Spinner from '../Spinner'
 
 Modal.setAppElement('#root')
 
@@ -72,9 +73,7 @@ export default function Map({ country }) {
                     </div>
                 )}
 
-                {isLoading && (
-                    <div>Carregando...</div>
-                )}
+                {isLoading && <Spinner />}
             </Modal>
         </>
     )

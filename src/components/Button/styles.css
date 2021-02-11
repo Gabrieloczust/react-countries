@@ -13,37 +13,37 @@
 }
 
 .button[color="primary"] {
-    background-color: #1db9ff;
+    background-color: var(--primary);
     color: #fff;
 }
 
 .button[color="primary"]:hover {
-    background-color: #1db9ffd6;
+    background-color: var(--primary-hover);
 }
 
 .button[color="secondary"] {
-    background-color: #9e9e9e;
+    background-color: var(--secondary);
     color: #fff;
 }
 
 .button[color="secondary"]:hover {
-    background-color: #9e9e9ed1;
+    background-color: var(--secondary-hover);
 }
 
 .button[color="success"] {
-    background-color: #66c16a;
+    background-color: var(--success);
     color: #fff;
 }
 
 .button[color="success"]:hover {
-    background-color: #66c16ac7;
+    background-color: var(--success-hover);
 }
 
 .button[color="danger"] {
-    background-color: #ff6d62;
+    background-color: var(--danger);
     color: #fff;
 }
 
 .button[color="danger"]:hover {
-    background-color: #ff6d62d9;
+    background-color: var(--danger-hover);
 }
