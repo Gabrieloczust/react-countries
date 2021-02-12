@@ -26,7 +26,6 @@ const slice = createSlice({
         },
         countriesSuccess: (state, action) => {
             state.countries = action.payload
-            state.countries2 = action.payload
             state.isLoading = false
         },
         updateCountry: (state, action) => {

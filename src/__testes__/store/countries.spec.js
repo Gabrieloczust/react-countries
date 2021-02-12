@@ -6,6 +6,13 @@ describe('Countries Reducer', () => {
             countries: null,
             isLoading: false,
             error: false,
+            search: '',
+            pagination: {
+                countries: null,
+                last: 0,
+                active: 0,
+                offset: 8,
+            }
         });
     });
 
@@ -30,7 +37,14 @@ describe('Countries Reducer', () => {
                 {
                     name: 'Poland',
                 },
-            ]
+            ],
+            search: '',
+            pagination: {
+                countries: null,
+                last: 0,
+                active: 0,
+                offset: 8,
+            }
         });
     });
 
@@ -79,7 +93,14 @@ describe('Countries Reducer', () => {
         })).toEqual({
             countries: null,
             isLoading: false,
-            error: 'Error!'
+            error: 'Error!',
+            search: '',
+            pagination: {
+                countries: null,
+                last: 0,
+                active: 0,
+                offset: 8,
+            }
         });
     });
 
@@ -89,7 +110,14 @@ describe('Countries Reducer', () => {
         })).toEqual({
             countries: null,
             error: false,
-            isLoading: true
+            isLoading: true,
+            search: '',
+            pagination: {
+                countries: null,
+                last: 0,
+                active: 0,
+                offset: 8,
+            }
         });
     });
 });
