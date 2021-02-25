@@ -9,19 +9,27 @@ export default function Pagination() {
     const dispatch = useDispatch()
     const { pagination } = useSelector(selectCountries)
 
-    if (pagination.last < 4) {
-        return <></>
+    function handleChangePage(page) {
+        if (page > pagination.last) {
+            page = 0;
+        }
+
+        if (page < 0) {
+            page = pagination.last;
+        }
+
+        dispatch(changePagination(page))
     }
 
-    function handleClick(page) {
-        dispatch(changePagination(page))
+    if (pagination.last < 1) {
+        return <></>
     }
 
     return (
         <div className="pagination">
             <button
                 className="prev"
-                onClick={() => handleClick(pagination.active === 0 ? pagination.last : pagination.active - 1)}
+                onClick={() => handleChangePage(pagination.active - 1)}
                 title="Página Anterior"
             >
                 <img src="/left-arrow.svg" alt="Página Anterior" />
@@ -29,9 +37,9 @@ export default function Pagination() {
 
             <button
                 className="prev"
-                onClick={() => handleClick(pagination.active === 0 ? pagination.last : pagination.active - 1)}
+                onClick={() => handleChangePage(pagination.active - 1)}
             >
-                {pagination.active === 0 ? pagination.last : pagination.active}
+                {pagination.active === 0 ? pagination.last + 1 : pagination.active}
             </button>
 
             <button className="active">
@@ -40,14 +48,14 @@ export default function Pagination() {
 
             <button
                 className="next"
-                onClick={() => handleClick(pagination.active === pagination.last ? 0 : pagination.active + 1)}
+                onClick={() => handleChangePage(pagination.active + 1)}
             >
-                {pagination.active === pagination.last ? 1 : pagination.active + 2}
+                {pagination.last === pagination.active ? 1 : pagination.active + 2}
             </button>
 
             <button
                 className="next"
-                onClick={() => handleClick(pagination.active === pagination.last ? 0 : pagination.active + 1)}
+                onClick={() => handleChangePage(pagination.active + 1)}
                 title="Proxíma Página"
             >
                 <img src="/right-arrow.svg" alt="Proxíma Página" />

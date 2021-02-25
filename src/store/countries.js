@@ -13,7 +13,7 @@ const slice = createSlice({
             countries: null,
             last: 0,
             active: 0,
-            offset: 8,
+            offset: 16,
         }
     },
     reducers: {
@@ -50,11 +50,7 @@ const slice = createSlice({
                 })
                 : state.countries
 
-            if (searchCountries.length <= 24) {
-                state.pagination.offset = 24
-            }
-
-            state.pagination.last = Number((countriesSearch.length / state.pagination.offset).toFixed())
+            state.pagination.last = Math.floor(countriesSearch.length / state.pagination.offset) - 1
             state.pagination.active = page
             state.pagination.countries = countriesSearch.slice(
                 page * state.pagination.offset,
