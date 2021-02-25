@@ -14,7 +14,7 @@ export default function Countries() {
   const { countries, pagination, isLoading, search } = useSelector(selectCountries)
 
   document.title = 'Countries'
-  document.getElementById("favicon").href = "public/favicon.png"
+  document.getElementById("favicon").href = "favicon.png"
 
   function handleChange(event) {
     dispatch(searchCountries(event.target.value))
