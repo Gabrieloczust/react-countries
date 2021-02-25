@@ -14,7 +14,7 @@ function Card({ to, name, capital, bandeira }) {
             `<span>${search.toLowerCase()}</span>`
         )
 
-        name = nameWithSearch.charAt(0) != '<'
+        name = nameWithSearch.charAt(0) !== '<'
             ? nameWithSearch.charAt(0).toUpperCase() + nameWithSearch.slice(1)
             : nameWithSearch.slice(0, 6) + nameWithSearch.charAt(6).toUpperCase() + nameWithSearch.slice(7)
     }
