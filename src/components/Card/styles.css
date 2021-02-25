@@ -35,6 +35,10 @@
     color: #000;
 }
 
+.card h4 span {
+    background-color: #ff9632;
+}
+
 .card h6 {
     font-size: 12px;
     color: #555;
