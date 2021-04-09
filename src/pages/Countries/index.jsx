@@ -5,14 +5,16 @@ import { GET_COUNTRIES } from "../../services/apollo";
 import {
     setCountries,
     selectCountries,
-    searchCountries,
     changePagination,
 } from "../../store/countries";
 
+import { Header } from "./Header";
+import { Card } from "./Card";
+import { NoResult } from "./NoResult";
+import { Pagination } from "./Pagination";
+
 import { Container } from "../../components/Container";
-import { Card } from "../../components/Card";
 import { Spinner } from "../../components/Spinner";
-import { Pagination } from "../../components/Pagination";
 
 import "./styles.css";
 
@@ -32,27 +34,15 @@ export const Countries = () => {
         },
     });
 
-    const handleChange = (event) => {
-        dispatch(searchCountries(event.target.value));
-        dispatch(changePagination());
-    };
-
     if (loading) return <Spinner />;
 
     return (
         <Container>
             <section id="countries">
-                <header className="header">
-                    <input
-                        type="search"
-                        placeholder="Buscar pelo nome..."
-                        value={search}
-                        onChange={handleChange}
-                    />
-                </header>
+                <Header />
 
                 {search.length > 0 && !pagination.countries.length && (
-                    <div>Nenhum resultado para a busca "{search}".</div>
+                    <NoResult search={search} />
                 )}
 
                 <div className="cards">

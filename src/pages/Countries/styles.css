@@ -5,27 +5,6 @@
     flex-direction: column;
 }
 
-.header {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.header input {
-    border: 1px solid #afafaf;
-    height: 45px;
-    width: 100%;
-    border-radius: 8px;
-    margin: 5px 0;
-    padding: 0 15px;
-    outline: 0;
-    color: #545454;
-    font-size: 16px;
-}
-
-.header input:focus {
-    border-color: var(--primary);
-}
-
 .cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

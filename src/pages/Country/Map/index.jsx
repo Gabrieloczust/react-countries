@@ -5,12 +5,12 @@ import { useHistory } from "react-router-dom";
 import { WorldMap } from "react-svg-worldmap";
 import Modal from "react-modal";
 
-import { GET_COUNTRY_MAP } from "../../services/apollo";
-import { selectCountries } from "../../store/countries";
-import { closeModal } from "../../store/layout";
+import { GET_COUNTRY_MAP } from "../../../services/apollo";
+import { selectCountries } from "../../../store/countries";
+import { closeModal } from "../../../store/layout";
 
 import { WorldMapHeader } from "./Header";
-import { Spinner } from "../Spinner";
+import { Spinner } from "../../../components/Spinner";
 import "./styles.css";
 
 Modal.setAppElement("#root");

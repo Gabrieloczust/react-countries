@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changePagination, selectCountries } from "../../store/countries";
+import { changePagination, selectCountries } from "../../../store/countries";
 
 import "./style.css";
 

@@ -8,7 +8,7 @@ import { selectCountries, updateCountry } from "../../store/countries";
 
 import { Container } from "../../components/Container";
 import { Button } from "../../components/Button";
-import { Map } from "../../components/Map";
+import { Map } from "./Map";
 
 import "./styles.css";
 
@@ -65,7 +65,7 @@ export const Country = () => {
                             {() => (
                                 <Form>
                                     <header>
-                                        {!editable && (
+                                        {!editable ? (
                                             <>
                                                 <Button
                                                     color="primary"
@@ -84,9 +84,7 @@ export const Country = () => {
                                                     VOLTAR
                                                 </Button>
                                             </>
-                                        )}
-
-                                        {editable && (
+                                        ) : (
                                             <>
                                                 <Button
                                                     color="success"

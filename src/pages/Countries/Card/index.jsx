@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { selectCountries } from "../../store/countries";
+import { selectCountries } from "../../../store/countries";
 
 import "./styles.css";
 
