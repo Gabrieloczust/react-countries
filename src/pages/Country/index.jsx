@@ -44,7 +44,7 @@ export const Country = () => {
 
                 <section className="informations">
                     <div className="img">
-                        <img src={country?.flag?.svgFile} alt="Bandeira" />
+                        <img src={country.flag.svgFile} alt="Bandeira" />
                     </div>
 
                     <div className="content">
@@ -65,7 +65,7 @@ export const Country = () => {
                             {() => (
                                 <Form>
                                     <header>
-                                        {!editable ? (
+                                        {!editable && (
                                             <>
                                                 <Button
                                                     color="primary"
@@ -84,7 +84,9 @@ export const Country = () => {
                                                     VOLTAR
                                                 </Button>
                                             </>
-                                        ) : (
+                                        )}
+
+                                        {editable && (
                                             <>
                                                 <Button
                                                     color="success"

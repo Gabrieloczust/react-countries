@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useDispatch, useSelector } from "react-redux";
@@ -113,4 +114,8 @@ export const Map = ({ country }) => {
             )}
         </Modal>
     );
+};
+
+Map.propTypes = {
+    country: PropTypes.object,
 };

@@ -1,4 +1,5 @@
 .mapTitle {
+    display: block;
     width: 100%;
     background-color: var(--primary);
     color: #fff;

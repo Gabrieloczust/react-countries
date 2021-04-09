@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "./styles.css";
 
 export const Button = ({ color, type, children, ...props }) => (
@@ -11,3 +12,12 @@ export const Button = ({ color, type, children, ...props }) => (
         {children}
     </button>
 );
+
+Button.propTypes = {
+    color: PropTypes.string,
+    type: PropTypes.string,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+    ]).isRequired,
+};

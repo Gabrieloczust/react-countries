@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -43,4 +44,11 @@ export const Card = ({ to, name, capital, bandeira }) => {
             </div>
         </Link>
     );
+};
+
+Card.propTypes = {
+    to: PropTypes.string,
+    name: PropTypes.string,
+    capital: PropTypes.string,
+    bandeira: PropTypes.string,
 };

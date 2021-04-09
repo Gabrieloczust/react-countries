@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "./styles.css";
 
 export const Container = ({ children, ...props }) => (
@@ -5,3 +6,10 @@ export const Container = ({ children, ...props }) => (
         {children}
     </div>
 );
+
+Container.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+    ]).isRequired,
+};

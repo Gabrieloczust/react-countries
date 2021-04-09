@@ -1,10 +1,15 @@
+import PropTypes from "prop-types";
 import "./styles.css";
 
 export const WorldMapHeader = ({ onClose }) => (
-    <div className="mapTitle">
+    <span className="mapTitle">
         Top 5 Países Proxímos
-        <div className="close" onClick={onClose}>
+        <span className="close" onClick={onClose}>
             x
-        </div>
-    </div>
+        </span>
+    </span>
 );
+
+WorldMapHeader.propTypes = {
+    onClose: PropTypes.func,
+};

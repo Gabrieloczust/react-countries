@@ -4,8 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const slice = createSlice({
     name: "countries",
     initialState: {
-        countries: null,
-        error: false,
+        countries: [],
         search: "",
         pagination: {
             countries: [],
