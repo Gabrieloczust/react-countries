@@ -1,18 +1,13 @@
-import React from 'react'
-import './styles.css'
+import "./styles.css";
 
-function Button(props) {
-    return (
-        <button
-            {...props}
-            className="button"
-            color={props.color ? props.color : 'primary'}
-            type={props.type ? props.type : 'button'}
-            data-testid="button-component"
-        >
-            {props.children}
-        </button>
-    )
-}
-
-export default Button
+export const Button = ({ color, type, children, ...props }) => (
+    <button
+        {...props}
+        className="button"
+        color={color ? color : "primary"}
+        type={type ? type : "button"}
+        data-testid="button-component"
+    >
+        {children}
+    </button>
+);

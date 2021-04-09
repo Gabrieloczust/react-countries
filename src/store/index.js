@@ -1,18 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { combineReducers } from 'redux'
+import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
 
-import countries from './countries'
-import countryMap from './countryMap'
-import layout from './layout'
+import countries from "./countries";
+import layout from "./layout";
 
 const reducer = combineReducers({
     countries,
-    countryMap,
     layout,
-})
+});
 
-const store = configureStore({
+export const store = configureStore({
     reducer,
-})
-
-export default store
+});

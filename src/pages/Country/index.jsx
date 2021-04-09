@@ -1,89 +1,107 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectCountries, updateCountry } from '../../store/countries'
-import { useParams, useHistory, Redirect } from "react-router-dom"
-import { Formik, Form, Field } from 'formik'
-import Container from '../../components/Container'
-import Button from '../../components/Button'
-import Map from '../../components/Map'
-import { openModal } from '../../store/layout'
-import { fetchCountryMap } from '../../store/countryMap'
-import './styles.css'
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams, useHistory, Redirect } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
 
-export default function Country() {
+import { openModal } from "../../store/layout";
+import { selectCountries, updateCountry } from "../../store/countries";
 
-    const { id } = useParams()
-    const history = useHistory()
+import { Container } from "../../components/Container";
+import { Button } from "../../components/Button";
+import { Map } from "../../components/Map";
 
-    const dispatch = useDispatch()
-    const { countries } = useSelector(selectCountries)
-    const [editable, setEditable] = useState(false)
+import "./styles.css";
 
-    const country = countries?.find(country => country._id === id)
+export const Country = () => {
+    const { id } = useParams();
+    const history = useHistory();
 
-    useEffect(() => {
-        dispatch(fetchCountryMap(id, countries))
-    }, [dispatch, id, countries])
+    const dispatch = useDispatch();
+    const { countries } = useSelector(selectCountries);
+    const [editable, setEditable] = useState(false);
 
-    if (!country) {
-        return <Redirect to='/' />
-    } else {
-        document.title = country.name
-        document.getElementById("favicon").href = country.flag.svgFile
-    }
+    const country = countries.find((country) => country._id === id);
 
-    function handleSubmit(values) {
-        dispatch(updateCountry(values))
-        setEditable(false)
-    }
+    if (!country) return <Redirect to="/" />;
+
+    document.title = country.name;
+    document.getElementById("favicon").href = country.flag.svgFile;
+
+    const handleSubmit = (values) => {
+        dispatch(updateCountry(values));
+        setEditable(false);
+    };
 
     return (
         <>
             <Container id="country">
-                <div className="background" style={{ backgroundImage: `url(${country?.flag?.svgFile})` }}></div>
+                <div
+                    className="background"
+                    style={{
+                        backgroundImage: `url(${country.flag.svgFile})`,
+                    }}
+                ></div>
 
                 <section className="informations">
-
                     <div className="img">
                         <img src={country?.flag?.svgFile} alt="Bandeira" />
                     </div>
 
                     <div className="content">
-
                         <Formik
                             enableReinitialize
                             initialValues={{
                                 _id: id,
-                                nameClient: country.nameClient ? country.nameClient : country.name,
+                                nameClient: country.nameClient
+                                    ? country.nameClient
+                                    : country.name,
                                 capital: country?.capital,
                                 area: country?.area,
                                 population: country?.population,
                                 domain: country?.topLevelDomains[0]?.name,
                             }}
-                            onSubmit={values => handleSubmit(values)}
+                            onSubmit={(values) => handleSubmit(values)}
                         >
                             {() => (
                                 <Form>
                                     <header>
                                         {!editable && (
                                             <>
-                                                <Button color="primary" onClick={() => setEditable(true)}>
+                                                <Button
+                                                    color="primary"
+                                                    onClick={() =>
+                                                        setEditable(true)
+                                                    }
+                                                >
                                                     EDITAR
-                                            </Button>
-                                                <Button color="secondary" onClick={() => history.push('/')}>
+                                                </Button>
+                                                <Button
+                                                    color="secondary"
+                                                    onClick={() =>
+                                                        history.push("/")
+                                                    }
+                                                >
                                                     VOLTAR
-                                            </Button>
+                                                </Button>
                                             </>
                                         )}
 
                                         {editable && (
                                             <>
-                                                <Button color="success" type="submit">
+                                                <Button
+                                                    color="success"
+                                                    type="submit"
+                                                >
                                                     SALVAR
-                                            </Button>
-                                                <Button color="secondary" onClick={() => setEditable(false)}>
+                                                </Button>
+                                                <Button
+                                                    color="secondary"
+                                                    onClick={() =>
+                                                        setEditable(false)
+                                                    }
+                                                >
                                                     CANCELAR
-                                            </Button>
+                                                </Button>
                                             </>
                                         )}
                                     </header>
@@ -91,38 +109,69 @@ export default function Country() {
                                     <ul className="listComponent">
                                         <li>
                                             <b>Nome: </b>
-                                            <Field type="text" required name="nameClient" disabled={!editable} />
+                                            <Field
+                                                type="text"
+                                                required
+                                                name="nameClient"
+                                                disabled={!editable}
+                                            />
                                         </li>
                                         <li>
                                             <b>Capital: </b>
-                                            <Field type="text" required name="capital" disabled={!editable} />
+                                            <Field
+                                                type="text"
+                                                required
+                                                name="capital"
+                                                disabled={!editable}
+                                            />
                                         </li>
                                         <li>
                                             <b>Área: </b>
-                                            <Field type="number" required name="area" disabled={!editable} />
+                                            <Field
+                                                type="number"
+                                                required
+                                                name="area"
+                                                disabled={!editable}
+                                            />
                                         </li>
                                         <li>
                                             <b>População: </b>
-                                            <Field type="number" required name="population" disabled={!editable} />
+                                            <Field
+                                                type="number"
+                                                required
+                                                name="population"
+                                                disabled={!editable}
+                                            />
                                         </li>
                                         <li>
                                             <b>Domínio: </b>
-                                            <Field type="text" required name="domain" disabled={!editable} />
+                                            <Field
+                                                type="text"
+                                                required
+                                                name="domain"
+                                                disabled={!editable}
+                                            />
                                         </li>
-                                        <li className="map-link" onClick={() => dispatch(openModal())}>
-                                            <small>Visualizar mapa com o Top 5 Países Proxímos</small>
+                                        <li
+                                            className="map-link"
+                                            onClick={() =>
+                                                dispatch(openModal())
+                                            }
+                                        >
+                                            <small>
+                                                Visualizar mapa com o Top 5
+                                                Países Proxímos
+                                            </small>
                                         </li>
                                     </ul>
                                 </Form>
                             )}
                         </Formik>
-
                     </div>
-
                 </section>
             </Container>
 
             <Map country={country} />
         </>
-    )
-}
+    );
+};

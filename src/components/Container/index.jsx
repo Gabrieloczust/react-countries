@@ -1,12 +1,7 @@
-import React from 'react'
-import './styles.css'
+import "./styles.css";
 
-function Container(props) {
-    return (
-        <div className="container" data-testid="container-component" {...props}>
-            {props.children}
-        </div>
-    )
-}
-
-export default Container
+export const Container = ({ children, ...props }) => (
+    <div className="container" data-testid="container-component" {...props}>
+        {children}
+    </div>
+);

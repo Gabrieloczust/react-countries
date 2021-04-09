@@ -1,80 +1,116 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from "react-router-dom"
-import Modal from 'react-modal'
-import { WorldMap } from "react-svg-worldmap"
-import { selectCountryMap } from '../../store/countryMap'
-import { selectCountries } from '../../store/countries'
-import { closeModal } from '../../store/layout'
+import { useState } from "react";
+import { useQuery } from "@apollo/client";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { WorldMap } from "react-svg-worldmap";
+import Modal from "react-modal";
 
-import './styles.css'
-import Spinner from '../Spinner'
+import { GET_COUNTRY_MAP } from "../../services/apollo";
+import { selectCountries } from "../../store/countries";
+import { closeModal } from "../../store/layout";
 
-Modal.setAppElement('#root')
+import { WorldMapHeader } from "./Header";
+import { Spinner } from "../Spinner";
+import "./styles.css";
 
-export default function Map({ country }) {
+Modal.setAppElement("#root");
 
-    const history = useHistory()
-    const dispatch = useDispatch()
-    const { countryMap, isLoading } = useSelector(selectCountryMap)
-    const { countries } = useSelector(selectCountries)
-    const modal = useSelector(state => state.layout.modal)
+export const Map = ({ country }) => {
+    const history = useHistory();
+    const dispatch = useDispatch();
 
-    const stylingFunction = context => ({
+    const [worldMapCountry, setWorldMapCountry] = useState([]);
+    const { countries } = useSelector(selectCountries);
+    const modal = useSelector((state) => state.layout.modal);
+
+    const { loading } = useQuery(GET_COUNTRY_MAP, {
+        variables: {
+            id: country._id,
+        },
+        onError: (error) => {
+            console.error(error);
+        },
+        onCompleted: ({ Country: [Country] }) => {
+            const distanceToOtherCountries = Country.distanceToOtherCountries;
+            const worldMapData = distanceToOtherCountries.map((country) => {
+                const countryFind = countries.find(
+                    (c) => c.name === country.countryName
+                );
+
+                return {
+                    country: countryFind.alpha2Code.toLowerCase(),
+                    value: country.distanceInKm.toFixed(2),
+                };
+            });
+
+            const valueTotal = worldMapData
+                .reduce((prevVal, element) => {
+                    return prevVal + parseInt(element.value);
+                }, 500)
+                .toFixed(2)
+                .toString();
+
+            setWorldMapCountry([
+                ...worldMapData,
+                {
+                    country: Country.alpha2Code.toLowerCase(),
+                    value: valueTotal,
+                },
+            ]);
+        },
+    });
+
+    const stylingFunction = (context) => ({
         fill: context.country === country.alpha2Code ? "blue" : "green",
         stroke: "black",
         strokeWidth: 2,
         strokeOpacity: 1,
         cursor: context.country === country.alpha2Code ? "auto" : "pointer",
-    })
+    });
 
-    const tooltipFunction = (countryName, isoCode, value) => isoCode === country.alpha2Code
-        ? countryName
-        : `Distância de ${value}km entre ${countryName} e ${country.name}`
+    const tooltipFunction = (countryName, isoCode, value) =>
+        isoCode === country.alpha2Code
+            ? countryName
+            : `Distância de ${value}km entre ${countryName} e ${country.name}`;
 
     const handleClickCountry = (event, countryName) => {
         if (countryName !== country.name) {
-            const countryId = countries.find(c => c.name === countryName)
+            const countryId = countries.find((c) => c.name === countryName);
 
             if (countryId?._id) {
-                dispatch(closeModal())
+                dispatch(closeModal());
                 history.push(`/country/${countryId?._id}`);
             }
         }
-    }
-
-    const WorldMapHeader = () => (
-        <div className="mapTitle">
-            Top 5 Países Proxímos
-            <div className="close" onClick={() => dispatch(closeModal())}>x</div>
-        </div>
-    )
+    };
 
     return (
-        <>
-            <Modal
-                isOpen={modal.open}
-                contentLabel={modal.title}
-                className="modal"
-                overlayClassName="modalOverlay"
-            >
-                {!isLoading && (
-                    <div className="map">
-                        <WorldMap
-                            title={<WorldMapHeader />}
-                            color="green"
-                            size="xl"
-                            backgroundColor="transparent"
-                            data={countryMap}
-                            styleFunction={stylingFunction}
-                            tooltipTextFunction={tooltipFunction}
-                            onClickFunction={handleClickCountry}
-                        />
-                    </div>
-                )}
-
-                {isLoading && <Spinner />}
-            </Modal>
-        </>
-    )
-}
+        <Modal
+            isOpen={modal.open}
+            contentLabel={modal.title}
+            className="modal"
+            overlayClassName="modalOverlay"
+        >
+            {!loading ? (
+                <div className="map">
+                    <WorldMap
+                        title={
+                            <WorldMapHeader
+                                onClose={() => dispatch(closeModal())}
+                            />
+                        }
+                        color="green"
+                        size="xl"
+                        backgroundColor="transparent"
+                        data={worldMapCountry}
+                        styleFunction={stylingFunction}
+                        tooltipTextFunction={tooltipFunction}
+                        onClickFunction={handleClickCountry}
+                    />
+                </div>
+            ) : (
+                <Spinner />
+            )}
+        </Modal>
+    );
+};

@@ -1,67 +1,78 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectCountries, fetchCountries, searchCountries, changePagination } from '../../store/countries'
-import Container from '../../components/Container'
-import Card from '../../components/Card'
-import Spinner from '../../components/Spinner'
-import Pagination from '../../components/Pagination'
+import { useQuery } from "@apollo/client";
+import { useDispatch, useSelector } from "react-redux";
 
-import './styles.css'
+import { GET_COUNTRIES } from "../../services/apollo";
+import {
+    setCountries,
+    selectCountries,
+    searchCountries,
+    changePagination,
+} from "../../store/countries";
 
-export default function Countries() {
+import { Container } from "../../components/Container";
+import { Card } from "../../components/Card";
+import { Spinner } from "../../components/Spinner";
+import { Pagination } from "../../components/Pagination";
 
-  const dispatch = useDispatch()
-  const { countries, pagination, isLoading, search } = useSelector(selectCountries)
+import "./styles.css";
 
-  document.title = 'Countries'
-  document.getElementById("favicon").href = "favicon.png"
+export const Countries = () => {
+    document.title = "Countries";
+    document.getElementById("favicon").href = "favicon.png";
 
-  function handleChange(event) {
-    dispatch(searchCountries(event.target.value))
-    dispatch(changePagination())
-  }
+    const dispatch = useDispatch();
+    const { pagination, search } = useSelector(selectCountries);
+    const { loading } = useQuery(GET_COUNTRIES, {
+        onCompleted: (data) => {
+            dispatch(setCountries(data.Country));
+            dispatch(changePagination());
+        },
+        onError: (error) => {
+            console.error(error);
+        },
+    });
 
-  useEffect(() => {
-    if(!countries) {
-        dispatch(fetchCountries())
-    }
-  }, [dispatch, countries])
+    const handleChange = (event) => {
+        dispatch(searchCountries(event.target.value));
+        dispatch(changePagination());
+    };
 
-  return (
-    <Container>
-        <section id="countries">
-            <header className="header">
-                <input
-                type="search"
-                placeholder="Buscar pelo nome..."
-                value={search}
-                onChange={handleChange} />
-            </header>
+    if (loading) return <Spinner />;
 
-            {search.length > 0 && pagination?.countries?.length === 0 && (
-                <div>Nenhum resultado para a busca "{search}".</div>
-            )}
+    return (
+        <Container>
+            <section id="countries">
+                <header className="header">
+                    <input
+                        type="search"
+                        placeholder="Buscar pelo nome..."
+                        value={search}
+                        onChange={handleChange}
+                    />
+                </header>
 
-            {isLoading && <Spinner />}
+                {search.length > 0 && !pagination.countries.length && (
+                    <div>Nenhum resultado para a busca "{search}".</div>
+                )}
 
-            {!isLoading && (
-              <>
                 <div className="cards">
-                    {pagination.countries && pagination?.countries.map(country => (
+                    {pagination.countries.map((country) => (
                         <Card
                             key={country._id}
-                            name={country.nameClient ? country.nameClient : country.name}
+                            name={
+                                country.nameClient
+                                    ? country.nameClient
+                                    : country.name
+                            }
                             capital={country.capital}
                             bandeira={country.flag.svgFile}
-                            to={'/country/' + country._id}
+                            to={"/country/" + country._id}
                         />
                     ))}
                 </div>
 
                 <Pagination />
-              </>
-            )}
-      </section>
-    </Container>
-  )
-}
+            </section>
+        </Container>
+    );
+};
